@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2z-)n1ba#7%v7@$ks+*z)pvp3lebr2y6%hx6!yg_01%66m%2n4'
+SECRET_KEY = '*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'megafon',
         'USER': 'megafon',
-        'PASSWORD': 'megafon',
+        'PASSWORD': '*',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -134,6 +134,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 EMAIL_HOST = 'mail.rsti.ru'
 EMAIL_HOST_USER = 'event@rsi.net'
-EMAIL_HOST_PASSWORD = 'event-event'
+EMAIL_HOST_PASSWORD = '*'
 EMAIL_PORT = 587
 EMAIL_USE_SSL = False
