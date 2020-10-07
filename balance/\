@@ -1,0 +1,11 @@
+from django.urls import path
+
+from . import views
+
+app_name = 'balance'
+urlpatterns = [
+    # ex: /hello/
+    path('hello', views.hello, name='hello'),
+    path('balance', views.balance, name='balance'),
+    path('get_balance', views.get_balance, name='get_balance')
+]

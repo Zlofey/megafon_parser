@@ -1,0 +1,88 @@
+{% extends 'balance/base.html' %}
+{% block content %}
+{% include "balance/balance.html" %}
+  <div id="container" style="width: 75%;">
+    <canvas id="line-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script src="https://cdn.tutorialjinni.com/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.js" ></script>
+
+  <script>
+
+    var config = {
+      type: 'line',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          fill: true,
+          label: '{{company.name|safe}}',
+          lineTension: 0,
+          borderColor: '#2d89ef',
+        }],
+      labels: {{ labels|safe }}
+      },
+      options: {
+	      title: {
+		    display: true,
+		    text: '{{company.name|safe}} - расходы абонентов за текущий месяц',
+		    position: 'top',
+		    fontSize: 16,
+		    padding: 20
+	     },
+	     legend: {
+		    display: false
+	     },
+	    scales: {
+	    yAxes: [{
+	      scaleLabel: {
+		display: true,
+		labelString: 'Руб'
+	      }
+	    }],
+	    xAxes: [{
+	      scaleLabel: {
+		display: true,
+		labelString: 'Дни'
+	      }
+	    }],
+	   },     
+		       annotation: {
+                            drawTime: 'afterDatasetsDraw', // (default)
+
+                              annotations: [{
+                                  drawTime: 'afterDraw', // overrides annotation.drawTime if set
+                                  id: 'a-line-1', // optional
+                                  type: 'line',
+                                  mode: 'horizontal',
+                                  scaleID: 'y-axis-0',
+                                  value: '{{company.company_info.expenses_limit|safe|floatformat:"0"}}',
+                                  borderColor: 'red',
+                                  borderWidth: 2,
+                                  label: {
+                                    backgroundColor: "red",
+                                    content: '{{company.company_info.expenses_limit|safe|floatformat:"0"}}',
+					  yAdjust: 10,
+                                    enabled: true
+                                  },
+                                  // Fires when the user clicks this annotation on the chart
+                                  // (be sure to enable the event in the events array below).
+                                  onClick: function(e) {
+                                      // `this` is bound to the annotation element
+                                  }
+                              }]
+                            }
+
+	      
+
+      },
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('line-chart').getContext('2d');
+      window.myLine = new Chart(ctx, config);
+    };
+
+  </script>
+
+{% endblock %}
